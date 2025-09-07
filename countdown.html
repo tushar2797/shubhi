@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tushar & Shubhi Countdown</title>
+  <style>
+    body {
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family: "Segoe UI", sans-serif;
+      background: url("rose-petals.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    .overlay {
+      position:absolute;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(3px);
+    }
+    .container {
+      position:relative;
+      z-index: 1;
+      text-align:center;
+      padding:25px 35px;
+      border-radius:20px;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .names {
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff4e50, #fc913a, #f9d423, #24c6dc, #5433ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 18px;
+    }
+    .countdown-link {
+      display:inline-block;
+      padding:16px 24px;
+      border-radius:14px;
+      text-decoration:none;
+      background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+      color:#333;
+      font-weight:600;
+      font-size:19px;
+      transition: transform .2s ease;
+    }
+    .countdown-link:hover {
+      transform: scale(1.05);
+    }
+    .countdown-timer {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      margin-top:12px;
+    }
+    .time-part {
+      text-align:center;
+      min-width:60px;
+    }
+    .num {
+      font-size:22px;
+      font-weight:bold;
+      color:#b83280;
+    }
+    .label {
+      font-size:12px;
+      color:#555;
+    }
+    .note {
+      margin-top:14px;
+      font-size:14px;
+      color:#333;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="names">💖 Tushar & Shubhi 💖</div>
+    <a id="cta" class="countdown-link" href="https://example.com" target="_blank">
+      Click Here
+      <div class="countdown-timer">
+        <div class="time-part"><div id="days" class="num">--</div><div class="label">Days</div></div>
+        <div class="time-part"><div id="hours" class="num">--</div><div class="label">Hours</div></div>
+        <div class="time-part"><div id="minutes" class="num">--</div><div class="label">Minutes</div></div>
+        <div class="time-part"><div id="seconds" class="num">--</div><div class="label">Seconds</div></div>
+      </div>
+    </a>
+    <div class="note">Countdown to <strong>2 Nov 2025</strong></div>
+  </div>
+
+  <script>
+    (function(){
+      const target = new Date('2025-11-02T00:00:00+05:30');
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+      function pad(n){ return String(n).padStart(2,'0'); }
+      function update() {
+        const diff = target - new Date();
+        if (diff <= 0) {
+          daysEl.textContent = '00';
+          hoursEl.textContent = '00';
+          minutesEl.textContent = '00';
+          secondsEl.textContent = '00';
+          clearInterval(timer);
+          return;
+        }
+        const sec = Math.floor(diff / 1000) % 60;
+        const min = Math.floor(diff / (1000*60)) % 60;
+        const hr = Math.floor(diff / (1000*60*60)) % 24;
+        const day = Math.floor(diff / (1000*60*60*24));
+        daysEl.textContent = day;
+        hoursEl.textContent = pad(hr);
+        minutesEl.textContent = pad(min);
+        secondsEl.textContent = pad(sec);
+      }
+      update();
+      const timer = setInterval(update, 1000);
+    })();
+  </script>
+</body>
+</html>
